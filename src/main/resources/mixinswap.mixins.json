@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "dev.stashy.mixinswap.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "dev.stashy.mixinswap.mixin.MixinSwapConfig",
+  "mixins": [],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

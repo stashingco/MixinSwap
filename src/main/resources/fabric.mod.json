@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "mixinswap",
+  "version": "${version}",
+  "name": "MixinSwap",
+  "description": "Allows choosing mixins based on game version.",
+  "authors": [
+    "stashymane"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "environment": "*"
+}
