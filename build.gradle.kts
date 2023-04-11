@@ -15,11 +15,14 @@ val archives_base_name: String by project.properties
 val minecraft_version: String by project.properties
 val yarn_mappings: String by project.properties
 val loader_version: String by project.properties
+val minimal_json_version: String by project.properties
 
 dependencies {
     minecraft("com.mojang:minecraft:${minecraft_version}")
     mappings("net.fabricmc:yarn:${yarn_mappings}:v2")
     modImplementation("net.fabricmc:fabric-loader:${loader_version}")
+
+    include(implementation("com.eclipsesource.minimal-json:minimal-json:${minimal_json_version}")!!)
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -64,6 +67,7 @@ publishing {
     }
 
     repositories {
+        mavenLocal()
     }
 }
 
