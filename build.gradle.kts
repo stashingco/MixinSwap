@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "dev.stashy"
+group = "dev.stashy.mixinswap"
 version = "1.0-SNAPSHOT"
 
 repositories {
