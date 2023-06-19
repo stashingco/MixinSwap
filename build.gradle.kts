@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "dev.stashy.mixinswap"
+group = "dev.stashy"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -59,6 +59,9 @@ tasks {
     }
 }
 
+val publish_username: String? by project
+val publish_password: String? by project
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -68,6 +71,12 @@ publishing {
 
     repositories {
         mavenLocal()
+        maven("https://repo.stashy.dev/snapshots") {
+            credentials {
+                username = publish_username
+                password = publish_password
+            }
+        }
     }
 }
 
