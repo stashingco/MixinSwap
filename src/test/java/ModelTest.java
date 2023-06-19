@@ -21,6 +21,7 @@ public class ModelTest {
         var config = MixinSwapConfig.fromJson(Files.newBufferedReader(Path.of(configResource.toURI())));
         Map<String, Version> mods = new HashMap<>();
         mods.put("minecraft", Version.parse("1.19"));
+        mods.put("testmod", Version.parse("1.0.0"));
 
         var matching = config.getMatchingMixins(mods);
         assertTrue(matching.contains("mixinByWildcard"));

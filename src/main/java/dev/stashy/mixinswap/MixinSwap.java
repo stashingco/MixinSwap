@@ -14,10 +14,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MixinSwap {
-    public static final String CONFIG_PATH = "mixinswap.mixins.json";
+    public static final String CONFIG_PATH = "mixinswap.config.json";
 
     public static List<String> getMatchingMixins(String mixinPackage, ModContainer mod, FabricLoader loader) {
-        return getConfig(mod).getMatchingMixins(getModVersions(loader)).stream().map(it -> mixinPackage + "." + it).toList();
+        return getConfig(mod).getMatchingMixins(getModVersions(loader));
     }
 
     public static MixinSwapConfig getConfig(ModContainer mod) {
@@ -36,6 +36,6 @@ public class MixinSwap {
     public static Map<String, Version> getModVersions(FabricLoader loader) {
         return loader.getAllMods().stream()
                 .map(ModContainer::getMetadata)
-                .collect(Collectors.toMap(ModMetadata::getName, ModMetadata::getVersion));
+                .collect(Collectors.toMap(ModMetadata::getId, ModMetadata::getVersion));
     }
 }
