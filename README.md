@@ -1,7 +1,7 @@
 # MixinSwap
 
 Allows you to choose mixins based on versions of the game, or other mods.  
-MixinSwap uses no Minecraft internals, so it should work on pretty much any Minecraft version.
+MixinSwap uses no Minecraft internals, so it should work on pretty much any Minecraft version that uses at least Java 8.
 
 Currently in a pre-release stage, use at your own discretion.
 

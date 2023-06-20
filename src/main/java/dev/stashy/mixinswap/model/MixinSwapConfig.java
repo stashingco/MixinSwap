@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MixinSwapConfig {
     private final Map<String, Map<String, List<String>>> mixinConfig;
@@ -23,11 +24,11 @@ public class MixinSwapConfig {
 
     public List<String> getMatchingMixins(Map<String, Version> mods) {
         return mixinConfig.entrySet().stream().filter(mixin -> {
-            var modVersion = mixin.getValue();
-            return modVersion.entrySet().stream().allMatch(modVersionEntry ->
+            Map<String, List<String>> modVersions = mixin.getValue();
+            return modVersions.entrySet().stream().allMatch(modVersionEntry ->
             {
-                var modName = modVersionEntry.getKey();
-                var entries = modVersionEntry.getValue();
+                String modName = modVersionEntry.getKey();
+                List<String> entries = modVersionEntry.getValue();
                 return entries.stream().allMatch(version -> {
                     try {
                         VersionPredicate matcher = VersionPredicateParser.parse(version);
@@ -37,15 +38,15 @@ public class MixinSwapConfig {
                     }
                 });
             });
-        }).map(Map.Entry::getKey).toList();
+        }).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
     public static MixinSwapConfig fromJson(Reader jsonReader) throws IOException {
-        var json = Json.parse(jsonReader);
+        JsonValue json = Json.parse(jsonReader);
         Map<String, Map<String, List<String>>> config = new HashMap<>();
-        var root = json.asObject();
+        JsonObject root = json.asObject();
         for (JsonObject.Member mixin : root) {
-            var mixinName = mixin.getName();
+            String mixinName = mixin.getName();
             Map<String, List<String>> modVersions = new HashMap<>();
             for (JsonObject.Member mod : mixin.getValue().asObject()) {
                 modVersions.put(mod.getName(), mod.getValue().asArray().values().stream().map(JsonValue::asString).toList());
