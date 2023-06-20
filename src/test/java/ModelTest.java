@@ -7,24 +7,39 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ModelTest {
-    @Test
-    public void testJson() throws IOException, VersionParsingException, URISyntaxException {
+    public MixinSwapConfig getConfig() throws URISyntaxException, IOException {
         var configResource = ModelTest.class.getResource("mixinswap.config.json");
         assert configResource != null;
-        var config = MixinSwapConfig.fromJson(Files.newBufferedReader(Path.of(configResource.toURI())));
-        Map<String, Version> mods = new HashMap<>();
-        mods.put("minecraft", Version.parse("1.19"));
-        mods.put("testmod", Version.parse("1.0.0"));
+        return MixinSwapConfig.fromJson(Files.newBufferedReader(Path.of(configResource.toURI())));
+    }
+
+    @Test
+    public void testJson() throws IOException, VersionParsingException, URISyntaxException {
+        var config = getConfig();
+
+        Map<String, Version> mods = Map.of("minecraft", Version.parse("1.19"), "testmod", Version.parse("1.0.0"));
 
         var matching = config.getMatchingMixins(mods);
         assertTrue(matching.contains("mixinByWildcard"));
+        assertTrue(matching.contains("mixinRange"));
+        assertFalse(matching.contains("mixinByComparison"));
+    }
+
+    @Test
+    public void testOutOfRange() throws URISyntaxException, IOException, VersionParsingException {
+        var config = getConfig();
+
+        Map<String, Version> mods = Map.of("minecraft", Version.parse("1.20"));
+
+        var matching = config.getMatchingMixins(mods);
+        assertFalse(matching.contains("mixinRange"));
+        assertFalse(matching.contains("mixinByWildcard"));
         assertFalse(matching.contains("mixinByComparison"));
     }
 }

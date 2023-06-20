@@ -1,8 +1,18 @@
 {
   "mixinByWildcard": {
-    "minecraft": "1.19.*"
+    "minecraft": [
+      "1.19.*"
+    ]
   },
   "mixinByComparison": {
-    "minecraft": "<1.18"
+    "minecraft": [
+      "<1.18"
+    ]
+  },
+  "mixinRange": {
+    "minecraft": [
+      ">=1.19",
+      "<1.20"
+    ]
   }
 }
