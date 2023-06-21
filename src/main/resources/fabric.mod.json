@@ -11,5 +11,12 @@
     "sources": "https://github.com/stashingco/MixinSwap"
   },
   "license": "CC0-1.0",
-  "environment": "*"
+  "environment": "*",
+  "custom": {
+    "modmenu": {
+      "badges": [
+        "library"
+      ]
+    }
+  }
 }
