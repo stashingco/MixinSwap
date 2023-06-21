@@ -49,7 +49,7 @@ public class MixinSwapConfig {
             String mixinName = mixin.getName();
             Map<String, List<String>> modVersions = new HashMap<>();
             for (JsonObject.Member mod : mixin.getValue().asObject()) {
-                modVersions.put(mod.getName(), mod.getValue().asArray().values().stream().map(JsonValue::asString).toList());
+                modVersions.put(mod.getName(), mod.getValue().asArray().values().stream().map(JsonValue::asString).collect(Collectors.toList()));
             }
             config.put(mixinName, modVersions);
         }
